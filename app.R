@@ -48,6 +48,10 @@ server <- function(input, output, session) {
         }
     })
     
+    observeEvent(input$logout, {
+        rv$logout_init <- rv$logout_init + 1
+    })
+    
     observe({
         if(user_info()$user_auth) {
             shinyjs::removeClass(selector = "body", class = "sidebar-collapse")
@@ -89,10 +93,6 @@ server <- function(input, output, session) {
             h2("Admin Data: mtcars"),
             DT::dataTableOutput("admin_table")
         )
-    })
-    
-    observeEvent(input$logout, {
-        rv$logout_init <- rv$logout_init + 1
     })
     
     admin_data <- reactive({
